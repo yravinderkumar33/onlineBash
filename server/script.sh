@@ -1,2 +1,2 @@
 #!/bin/bash 
-ifconfig
+mkdir a

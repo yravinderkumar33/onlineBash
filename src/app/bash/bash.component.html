@@ -1,0 +1,13 @@
+
+
+<div class="jumbotron col-md-12">
+  <form #commands="ngForm" (ngSubmit)="onSubmit(commands)">
+    <label for="exampleFormControlTextarea1">Enter your commands here</label>
+    <hr>
+    <div class="form-group">
+      <textarea ngModel name="commandFile" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+    <hr>
+    <input type="submit" class="btn btn-primary" value="Execute">
+  </form>
+</div>

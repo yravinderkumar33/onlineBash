@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BashService } from '../bash.service';
 import { pluck } from 'rxjs/operators';
+import { merge } from 'rxjs'
 
 @Component({
   selector: 'app-result',
@@ -10,8 +11,8 @@ import { pluck } from 'rxjs/operators';
 export class ResultComponent implements OnInit {
 
   constructor(private service: BashService) { }
-  response 
+  response
   ngOnInit() {
-    this.response= this.service.getResult().pipe(pluck('result'))
+    this.response = merge(this.service.getResult().pipe(pluck('result')), this.service.getManPage());
   }
 }

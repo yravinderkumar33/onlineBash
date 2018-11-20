@@ -4,5 +4,6 @@
     width:100%;
     white-space: pre-wrap;
     height:100%;
-    font-size: 10px;
+    font-size: 13px;
+    overflow-y: scroll
 }

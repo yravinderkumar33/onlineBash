@@ -27,3 +27,15 @@ app.post("/api/commands", (req, res) => {
         res.json({ result: stdout })
     })
 })
+
+app.get("/api/downloadMan/:command", (req, res) => {
+    const command = req.params.command;
+    console.log(command)
+    exec(`man ${command} > man/${command}.txt`, (error, stdout, stderr) => {
+        if (error) res.json({ result: "please enter a valid command" })
+        if (stderr) res.json({ result: "please enter a valid command" })
+        res.download(`man/${command}.txt`);
+    })
+})
+
+

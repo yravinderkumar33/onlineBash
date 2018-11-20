@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const fs = require('fs');
+const os = require('os');
 const { spawn, exec } = require('child_process');
 
 app.listen(4000, () => {
@@ -35,6 +36,20 @@ app.get("/api/downloadMan/:command", (req, res) => {
         if (error) res.json({ result: "please enter a valid command" })
         if (stderr) res.json({ result: "please enter a valid command" })
         res.download(`man/${command}.txt`);
+    })
+})
+
+app.get("/api/getSystemInformation", (req, res) => {
+
+    const architecture = os.arch();
+    const freeMemory = os.freemem();
+    const hostName = os.hostname();
+    const platform = os.platform();
+    const totalMemory = os.totalmem();
+    const uptime = os.uptime();
+    const userInfo = os.userInfo();
+    res.json({
+        architecture, freeMemory, hostName, platform, totalMemory, uptime, uptime, userInfo
     })
 })
 

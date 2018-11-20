@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http , Response } from '@angular/http';
-import {map} from 'rxjs/operators';
+import { Http, Response } from '@angular/http';
+import { map, tap } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 
 
@@ -9,41 +9,43 @@ import { Observable, Subject } from 'rxjs';
 })
 export class BashService {
 
-  response =  new Subject();
-  manPage =  new Subject();
-  commands : string[] = [];
+  response = new Subject();
+  manPage = new Subject();
+  commands: string[] = [];
 
   constructor(private http: Http) { }
 
-  executeCommand(message:string){
-    console.log("message" , message);
-    this.http.post("http://localhost:4000/api/commands",{body:message})
-    .pipe(map((data:Response)=>data.json())
-    ).subscribe((data)=>{
-      console.log("response"  , data);
-      this.response.next(data)
-    });
+  executeCommand(message: string) {
+    console.log("message", message);
+    this.http.post("http://localhost:4000/api/commands", { body: message })
+      .pipe(map((data: Response) => data.json())
+      ).subscribe((data) => {
+        console.log("response", data);
+        this.response.next(data)
+      });
   }
 
-  getResult(){
+  getResult() {
     return this.response;
   }
 
-  getManPage(){
+  getManPage() {
     return this.manPage;
   }
 
-  downloadManFile(command){
-    console.log("command to run " , command);
+  downloadManFile(command) {
+    console.log("command to run ", command);
     this.commands.push(command);
-    this.http.get("http://localhost:4000/api/downloadMan/"+command)
-    .pipe(map((data)=>data.text())).subscribe((data)=>{
-      this.manPage.next(data);
-    })
+    this.http.get("http://localhost:4000/api/downloadMan/" + command)
+      .pipe(map((data) => data.text())).subscribe((data) => {
+        this.manPage.next(data);
+      })
   }
 
-
-
-
-
+  getSystemInformation() {
+    return this.http.get("http://localhost:4000/api/getSystemInformation")
+      .pipe(
+        map((data: Response) => data.json())
+      )
+  }
 }

@@ -11,6 +11,7 @@ export class BashService {
 
   response =  new Subject();
   manPage =  new Subject();
+  commands : string[] = [];
 
   constructor(private http: Http) { }
 
@@ -34,6 +35,7 @@ export class BashService {
 
   downloadManFile(command){
     console.log("command to run " , command);
+    this.commands.push(command);
     this.http.get("http://localhost:4000/api/downloadMan/"+command)
     .pipe(map((data)=>data.text())).subscribe((data)=>{
       this.manPage.next(data);

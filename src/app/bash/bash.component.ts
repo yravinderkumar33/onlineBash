@@ -10,10 +10,12 @@ import { BashService } from '../bash.service';
 })
 export class BashComponent implements OnInit {
 
+  commandsHistory :string[];
+
   constructor(private service:BashService) { }
 
   ngOnInit() {
-    
+    this.commandsHistory= this.service.commands
   }
 
   onSubmit(commands:NgForm){

@@ -8,12 +8,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BashComponent } from './bash/bash.component';
 import { ResultComponent } from './result/result.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BashComponent,
-    ResultComponent
+    ResultComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +23,7 @@ import { ResultComponent } from './result/result.component';
     FormsModule,
     HttpModule
   ],
-  providers: [BashService],
+  providers: [BashService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -11,9 +11,9 @@ export class AppComponent {
   title = 'bash-online';
   @ViewChild('commandForm') commandForm: NgForm;
 
-  constructor(private service : BashService){
+  constructor(private service : BashService){}
+  
 
-  }
   onSubmit() {
     const command = this.commandForm.value.command
     this.service.downloadManFile(command);

@@ -1,13 +1,12 @@
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">Bash Online </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+  <a class="navbar-brand" routerLink="/">Bash Online </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01"
+    aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarColor01">
     <ul class="navbar-nav mr-auto">
-     
     </ul>
     <form class="form-inline my-2 my-lg-0" #commandForm="ngForm" (ngSubmit)="onSubmit()">
       <input class="form-control mr-sm-2" type="text" placeholder="Search for a command info" ngModel name="command">
@@ -16,14 +15,5 @@
   </div>
 </nav>
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-6 bash">
-      <app-bash></app-bash>
-    </div>
 
-    <div class="col-md-6 border result">
-      <app-result></app-result>
-    </div>
-  </div>
-</div>
+<router-outlet></router-outlet>

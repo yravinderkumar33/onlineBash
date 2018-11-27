@@ -1,13 +1,28 @@
 const express = require('express');
+var session = require('express-session');
+var Keycloak = require('keycloak-connect');
 const app = express();
+var memoryStore = new session.MemoryStore();
+var keycloak = new Keycloak({ store: memoryStore });
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const os = require('os');
 const { spawn, exec } = require('child_process');
-
-app.listen(4000, () => {
-    console.log("listening on port 4000");
+const port = process.env.PORT||4000;
+app.listen(port, () => {
+    console.log("listening on port - " + port);
 })
+
+//session                       
+app.use(session({
+    secret: 'thisShouldBeLongAndSecret',
+    resave: false,
+    saveUninitialized: true,
+    store: memoryStore
+}));
+// app.use(keycloak.middleware());
+
+app.use(keycloak.middleware());
 
 app.use(bodyParser.json())
 
@@ -17,7 +32,8 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.post("/api/commands", (req, res) => {
+
+app.post("/api/commands" ,  (req, res) => {
     const body = req.body.body;
     const header = "#!/bin/bash \n";
     console.log(header + body);
@@ -40,7 +56,6 @@ app.get("/api/downloadMan/:command", (req, res) => {
 })
 
 app.get("/api/getSystemInformation", (req, res) => {
-
     const architecture = os.arch();
     const freeMemory = os.freemem();
     const hostName = os.hostname();
